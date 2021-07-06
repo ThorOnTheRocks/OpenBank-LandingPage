@@ -27,3 +27,15 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+// Selecting DOM Elements
+
+const header = document.querySelector('.header');
+
+const msgCookie = document.createElement('div');
+
+msgCookie.classList.add('cookie-message');
+msgCookie.innerHTML = `<p>This website contains cookies for a better functionality</p> <button class="btn">Got it</button>`;
+header.append(msgCookie);
+
+msgCookie.addEventListener('click', () => msgCookie.remove(msgCookie));
