@@ -14,6 +14,7 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsOperations = document.querySelectorAll('.operations__tab');
 const operationsContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
+const section1Coords = section1.getBoundingClientRect();
 
 // Modal window
 const openModal = (e) => {
@@ -91,6 +92,27 @@ tabsContainer.addEventListener('click', (e) => {
 
 nav.addEventListener('mouseover', (e) => handleHover(e, 0.5));
 nav.addEventListener('mouseout', (e) => handleHover(e, 1));
+
+// Get Height Value NavBar
+const navHeight = nav.getBoundingClientRect().height;
+
+//Intersection Observer API to add sticky nav
+const stickyNav = (entries) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky')
+  } else {
+    nav.classList.remove('sticky')
+  }
+}
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
+});
+
+headerObserver.observe(header);
 
 
 
