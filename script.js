@@ -15,6 +15,7 @@ const tabsOperations = document.querySelectorAll('.operations__tab');
 const operationsContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
 const section1Coords = section1.getBoundingClientRect();
+const allSection = document.querySelectorAll('.section');
 
 // Modal window
 const openModal = (e) => {
@@ -115,28 +116,22 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 headerObserver.observe(header);
 
 // Revealing Sections on Scroll
-const section1Height = section1Coords.height;
 
-const showSection1 = (entries) => {
+const revealSection = (entries, observer) => {
   const [entry] = entries;
-  if (!entry.isIntersecting) {
-    section1.classList.remove('section--hidden')
-  } else {
-    section1.classList.add('section--hidden')
-  }
-}
+  if (!entry.isIntersecting) return;
 
-const sectionObserver = new IntersectionObserver(showSection1, {
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
   root: null,
-  threshold: 0,
-  rootMargin: `-${section1Height}px`
+  threshold: 0.15,
 });
 
-sectionObserver.observe(section1);
-
-
-
-
-
-
-
+allSection.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
