@@ -13,6 +13,7 @@ const btnsNavLinks = document.querySelectorAll('.nav__link');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsOperations = document.querySelectorAll('.operations__tab');
 const operationsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 // Modal window
 const openModal = (e) => {
@@ -54,6 +55,20 @@ btnsNavLinks.forEach(btn => btn.addEventListener('click', (e) => {
   document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
 }))
 
+//Menu Fade Animation Function
+const handleHover = (e, opacity) => {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = opacity;
+    })
+    logo.style.opacity = opacity;
+  }
+}
+
 // Events Handler
 msgCookie.addEventListener('click', () => msgCookie.remove(msgCookie));
 
@@ -73,6 +88,13 @@ tabsContainer.addEventListener('click', (e) => {
   document.querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+nav.addEventListener('mouseover', (e) => handleHover(e, 0.5));
+nav.addEventListener('mouseout', (e) => handleHover(e, 1));
+
+
+
+
 
 
 
