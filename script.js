@@ -114,6 +114,26 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+// Revealing Sections on Scroll
+const section1Height = section1Coords.height;
+
+const showSection1 = (entries) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    section1.classList.remove('section--hidden')
+  } else {
+    section1.classList.add('section--hidden')
+  }
+}
+
+const sectionObserver = new IntersectionObserver(showSection1, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${section1Height}px`
+});
+
+sectionObserver.observe(section1);
+
 
 
 
