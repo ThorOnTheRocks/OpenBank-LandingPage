@@ -10,6 +10,9 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnsNavLinks = document.querySelectorAll('.nav__link');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsOperations = document.querySelectorAll('.operations__tab');
+const operationsContent = document.querySelectorAll('.operations__content');
 
 // Modal window
 const openModal = (e) => {
@@ -53,6 +56,23 @@ btnsNavLinks.forEach(btn => btn.addEventListener('click', (e) => {
 
 // Events Handler
 msgCookie.addEventListener('click', () => msgCookie.remove(msgCookie));
+
+tabsContainer.addEventListener('click', (e) => {
+  // Target element that trigger event
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  //Remove active class Button and Content
+  tabsOperations.forEach(tab => tab.classList.remove('operations__tab--active'));
+  operationsContent.forEach(content => content.classList.remove('operations__content--active'));
+
+  // Add active class Button and Content
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
 
 
 
